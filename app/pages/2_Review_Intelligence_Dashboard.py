@@ -4,7 +4,7 @@ import pandas as pd
 # Load reviews data
 @st.cache_data
 def load_reviews_data():
-    return pd.read_csv("reviews_with_clusters.csv")
+    return pd.read_csv("app/reviews_with_clusters.csv")
 
 def display_reviews_and_sentiment(reviews_df, product_name):
     product_reviews = reviews_df[reviews_df['name'] == product_name]
