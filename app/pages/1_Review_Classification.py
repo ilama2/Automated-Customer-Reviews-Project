@@ -4,24 +4,30 @@ import torch
 import gdown
 import os
 
-# Function to download the model from Google Drive
-def download_model():
-    # Replace 'FILE_ID' with the actual file ID from your Google Drive model link
-    url = "https://drive.google.com/drive/folders/1-ku8JPLxNa_uzaLQMTVJmCxtaAke3c-h?usp=sharing"
-    output = './final_modelv3py'  # The path to save the model locally
-    gdown.download(url, output, quiet=False)
+# === CONFIG ===
+MODEL_DIR = "final_modelv3py"
+ZIP_FILE = "final_modelv3py.zip"
+FILE_ID = "1gd-5Ah8c_0-qF_LHckISCvpFhIKAb0Fk"  # Replace with your actual file ID
+GDRIVE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
-# Check if the model is already downloaded
-if not os.path.exists('./final_modelv3py'):
-    st.write("Downloading the model...")
-    download_model()
-    st.write("Model downloaded successfully!")
+# === DOWNLOAD + UNZIP ===
+def download_and_extract_model():
+    if not os.path.exists(MODEL_DIR):
+        st.info("Downloading model from Google Drive...")
+        gdown.download(GDRIVE_URL, ZIP_FILE, quiet=False)
 
+        st.info("Extracting model...")
+        with zipfile.ZipFile(ZIP_FILE, 'r') as zip_ref:
+            zip_ref.extractall()
+
+        st.success("Model ready!")
+
+# === Load the model ===
+download_and_extract_model()
 
 # Load the tokenizer and model (make sure to replace the model path with the correct one)
-model_path = './final_modelv3py'
-tokenizer = RobertaTokenizer.from_pretrained(model_path)
-model = RobertaForSequenceClassification.from_pretrained(model_path)
+tokenizer = RobertaTokenizer.from_pretrained(MODEL_DIR)
+model = RobertaForSequenceClassification.from_pretrained(MODEL_DIR)
 
 # Set up the app layout
 st.title("Review Classification")
