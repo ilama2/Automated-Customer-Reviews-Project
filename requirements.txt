@@ -1,0 +1,7 @@
+# requirements.txt
+transformers
+pandas
+gradio
+torch
+scikit-learn
+gdown
