@@ -3,27 +3,21 @@ from transformers import RobertaTokenizer, RobertaForSequenceClassification
 import torch
 import gdown
 import os
+import zipfile 
 
 # === CONFIG ===
 MODEL_DIR = "final_modelv3py"
 ZIP_FILE = "final_modelv3py.zip"
-FILE_ID = "1gd-5Ah8c_0-qF_LHckISCvpFhIKAb0Fk"  # Replace with your actual file ID
+FILE_ID = "1gd-5Ah8c_0-qF_LHckISCvpFhIKAb0Fk"  
 GDRIVE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
 # === DOWNLOAD + UNZIP ===
-def download_and_extract_model():
-    if not os.path.exists(MODEL_DIR):
-        st.info("Downloading model from Google Drive...")
-        gdown.download(GDRIVE_URL, ZIP_FILE, quiet=False)
-
-        st.info("Extracting model...")
-        with zipfile.ZipFile(ZIP_FILE, 'r') as zip_ref:
-            zip_ref.extractall()
-
-        st.success("Model ready!")
-
-# === Load the model ===
-download_and_extract_model()
+if not os.path.exists(MODEL_DIR):
+    url = f"https://drive.google.com/uc?id={FILE_ID}"
+    gdown.download(url, ZIP_PATH, quiet=False)
+    with zipfile.ZipFile(ZIP_PATH, 'r') as zip_ref:
+        zip_ref.extractall()
+    os.remove(ZIP_PATH)
 
 # Load the tokenizer and model (make sure to replace the model path with the correct one)
 tokenizer = RobertaTokenizer.from_pretrained(MODEL_DIR)
