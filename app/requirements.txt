@@ -5,3 +5,4 @@ gradio
 torch
 scikit-learn
 gdown
+zipfile 
