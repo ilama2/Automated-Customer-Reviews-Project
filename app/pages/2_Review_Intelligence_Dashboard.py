@@ -1,13 +1,32 @@
 import streamlit as st
 import pandas as pd
+import os
 
-# Load reviews data
+# Load reviews data with error handling
 @st.cache_data
 def load_reviews_data():
-    return pd.read_csv("app/reviews_with_clusters.csv")
+    file_path = "app/reviews_with_clusters.csv"
+    
+    # Check if file exists
+    if not os.path.exists(file_path):
+        st.error(f"File '{file_path}' not found!")
+        return pd.DataFrame()  # Return an empty DataFrame
+    
+    try:
+        reviews_df = pd.read_csv(file_path)
+        if reviews_df.empty:
+            st.warning(f"The file '{file_path}' is empty!")
+        return reviews_df
+    except Exception as e:
+        st.error(f"Error loading the file '{file_path}': {e}")
+        return pd.DataFrame()  # Return an empty DataFrame if reading fails
 
 def display_reviews_and_sentiment(reviews_df, product_name):
     product_reviews = reviews_df[reviews_df['name'] == product_name]
+
+    if product_reviews.empty:
+        st.warning(f"No reviews found for the product '{product_name}'.")
+        return
 
     positive_reviews = product_reviews[product_reviews['sentiment'] == 'Positive']
     negative_reviews = product_reviews[product_reviews['sentiment'] == 'Negative']
