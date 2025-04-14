@@ -14,11 +14,11 @@ if page == "Review Classification":
     st.write("You selected the **Review Classification** page!")
     # You can include the content for Review Classification directly here or import the page as a module.
     # For example, import or execute the code from 'pages/1_Review_Classification.py'
-    exec(open('pages/1_Review_Classification.py').read())
+    exec(open('app/pages/1_Review_Classification.py').read())
 
 elif page == "Review Intelligence Dashboard":
     # Link to the second page (Review Intelligence Dashboard)
     st.write("You selected the **Review Intelligence Dashboard** page!")
     # You can include the content for Review Intelligence Dashboard directly here or import the page as a module.
     # For example, import or execute the code from 'pages/2_Review_Intelligence_Dashboard.py'
-    exec(open('pages/2_Review_Intelligence_Dashboard.py').read())
+    exec(open('app/pages/2_Review_Intelligence_Dashboard.py').read())
