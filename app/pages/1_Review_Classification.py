@@ -8,6 +8,7 @@ import zipfile
 # === CONFIG ===
 MODEL_DIR = "final_modelv3py"
 ZIP_FILE = "final_modelv3py.zip"
+ZIP_PATH = "final_modelv3py.zip"
 FILE_ID = "1gd-5Ah8c_0-qF_LHckISCvpFhIKAb0Fk"  
 GDRIVE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
